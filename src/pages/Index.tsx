@@ -121,19 +121,20 @@ const Index = () => {
       >
         {/* Background Neural Network */}
         <div className="absolute inset-0 z-0">
-          <NeuralNetwork className="h-full w-full" />
+          <NeuralNetwork className="h-full w-full slow-network" />
         </div>
 
         {/* Hero Content */}
         <div className="container relative z-10 px-4 mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 hero-fade-in">
-            <span className="text-gradient">Neural Network</span> Portfolio
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
+            <span className="text-gradient cyberpunk-text">Neural Network</span>{' '}
+            <span className="glitch-text" data-text="Portfolio">Portfolio</span>
           </h1>
-          <p className="text-xl md:text-2xl text-sci-gray max-w-3xl mx-auto mb-8 hero-fade-in-delay-1">
+          <p className="text-xl md:text-2xl text-sci-gray max-w-3xl mx-auto mb-8 typing-text">
             AI Engineer & Full-Stack Developer creating intelligent systems and
             innovative applications.
           </p>
-          <div className="hero-fade-in-delay-2">
+          <div className="hero-fade-in-delay-3">
             <button
               onClick={() => handleNavigate("about")}
               className="px-8 py-3 rounded-md font-medium bg-gradient-to-r from-sci-cyan to-sci-purple text-white hover:shadow-lg hover:shadow-sci-cyan/20 transition-all duration-300"

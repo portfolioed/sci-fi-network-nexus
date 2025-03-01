@@ -147,13 +147,14 @@ const NeuralNetwork: React.FC<NeuralNetworkProps> = ({
               color={node.color as "cyan" | "purple" | "blue" | "white"}
               size="md"
               active={hoveredNode === node.id}
+              pulsing={false}
             />
           </div>
         );
       })}
 
       {/* Background Nodes - purely decorative */}
-      {isInitialized && Array.from({ length: 35 }).map((_, i) => {
+      {isInitialized && Array.from({ length: 20 }).map((_, i) => {
         const x = Math.random() * containerDimensions.width;
         const y = Math.random() * containerDimensions.height;
         const size = Math.random() > 0.8 ? "sm" : "sm";
