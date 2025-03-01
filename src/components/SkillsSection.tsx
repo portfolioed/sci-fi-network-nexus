@@ -183,7 +183,7 @@ const SkillsSection: React.FC = () => {
           
           <div className="mt-6 pt-6 border-t border-sci-muted/30">
             <p className="text-sm text-sci-gray">
-              <span className="text-sci-cyan">></span> Continuously learning and expanding skills in {categories.find(c => c.id === activeCategory)?.name.toLowerCase()} and related technologies.
+              <span className="text-sci-cyan">{`>`}</span> Continuously learning and expanding skills in {categories.find(c => c.id === activeCategory)?.name.toLowerCase()} and related technologies.
             </p>
           </div>
         </GlassCard>

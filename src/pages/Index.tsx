@@ -5,8 +5,10 @@ import AboutSection from "@/components/AboutSection";
 import SkillsSection from "@/components/SkillsSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ProjectsSection from "@/components/ProjectsSection";
+import CertificationsSection from "@/components/CertificationsSection";
 import ContactSection from "@/components/ContactSection";
 import NeuralNetwork from "@/components/NeuralNetwork";
+import ScrollAnimations from "@/components/ScrollAnimations";
 import { ArrowDown } from "lucide-react";
 
 const Index = () => {
@@ -17,6 +19,7 @@ const Index = () => {
   const skillsRef = useRef<HTMLDivElement>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
+  const certificationsRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
 
   // Handle section navigation
@@ -35,6 +38,8 @@ const Index = () => {
       experienceRef.current?.scrollIntoView(scrollOptions);
     } else if (section === "projects") {
       projectsRef.current?.scrollIntoView(scrollOptions);
+    } else if (section === "certifications") {
+      certificationsRef.current?.scrollIntoView(scrollOptions);
     } else if (section === "contact") {
       contactRef.current?.scrollIntoView(scrollOptions);
     }
@@ -62,6 +67,7 @@ const Index = () => {
       { ref: skillsRef, id: "skills" },
       { ref: experienceRef, id: "experience" },
       { ref: projectsRef, id: "projects" },
+      { ref: certificationsRef, id: "certifications" },
       { ref: contactRef, id: "contact" },
     ];
 
@@ -106,6 +112,7 @@ const Index = () => {
       </div>
 
       <NavBar activeSection={activeSection} onNavigate={handleNavigate} />
+      <ScrollAnimations />
 
       {/* Hero Section with Neural Network */}
       <div
@@ -114,23 +121,19 @@ const Index = () => {
       >
         {/* Background Neural Network */}
         <div className="absolute inset-0 z-0">
-          <NeuralNetwork
-            className="h-full w-full"
-            onNodeClick={handleNavigate}
-            activeNode={activeSection}
-          />
+          <NeuralNetwork className="h-full w-full" />
         </div>
 
         {/* Hero Content */}
         <div className="container relative z-10 px-4 mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 hero-fade-in">
             <span className="text-gradient">Neural Network</span> Portfolio
           </h1>
-          <p className="text-xl md:text-2xl text-sci-gray max-w-3xl mx-auto mb-8 animate-fade-in delay-100">
+          <p className="text-xl md:text-2xl text-sci-gray max-w-3xl mx-auto mb-8 hero-fade-in-delay-1">
             AI Engineer & Full-Stack Developer creating intelligent systems and
             innovative applications.
           </p>
-          <div className="animate-fade-in delay-200">
+          <div className="hero-fade-in-delay-2">
             <button
               onClick={() => handleNavigate("about")}
               className="px-8 py-3 rounded-md font-medium bg-gradient-to-r from-sci-cyan to-sci-purple text-white hover:shadow-lg hover:shadow-sci-cyan/20 transition-all duration-300"
@@ -150,19 +153,22 @@ const Index = () => {
       </div>
 
       {/* Main Content Sections */}
-      <div ref={aboutRef}>
+      <div ref={aboutRef} className="scroll-section">
         <AboutSection />
       </div>
-      <div ref={skillsRef}>
+      <div ref={skillsRef} className="scroll-section">
         <SkillsSection />
       </div>
-      <div ref={experienceRef}>
+      <div ref={experienceRef} className="scroll-section">
         <ExperienceSection />
       </div>
-      <div ref={projectsRef}>
+      <div ref={projectsRef} className="scroll-section">
         <ProjectsSection />
       </div>
-      <div ref={contactRef}>
+      <div ref={certificationsRef} className="scroll-section">
+        <CertificationsSection />
+      </div>
+      <div ref={contactRef} className="scroll-section">
         <ContactSection />
       </div>
 

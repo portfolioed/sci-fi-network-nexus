@@ -151,7 +151,7 @@ const ProjectsSection: React.FC = () => {
               
               <div className="flex justify-between items-center pt-4 border-t border-sci-muted/30">
                 <div className="text-xs text-sci-gray">
-                  <span className="text-sci-cyan">></span> Click links to view project details
+                  <span className="text-sci-cyan">{`>`}</span> Click links to view project details
                 </div>
                 <div className="flex gap-3">
                   {project.links.github && (

@@ -12,19 +12,18 @@ interface Link {
 
 interface NeuralNetworkProps {
   className?: string;
-  onNodeClick?: (nodeId: string) => void;
   activeNode?: string;
 }
 
 const NeuralNetwork: React.FC<NeuralNetworkProps> = ({ 
   className, 
-  onNodeClick,
   activeNode
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [links, setLinks] = useState<Link[]>([]);
   const [containerDimensions, setContainerDimensions] = useState({ width: 0, height: 0 });
   const [isInitialized, setIsInitialized] = useState(false);
+  const [hoveredNode, setHoveredNode] = useState<string | null>(null);
 
   // More random node positions for a more organic network
   const nodes = [
@@ -84,14 +83,14 @@ const NeuralNetwork: React.FC<NeuralNetworkProps> = ({
       return {
         from: nodePositions[link.fromId],
         to: nodePositions[link.toId],
-        active: activeNode === link.fromId || activeNode === link.toId,
+        active: hoveredNode === link.fromId || hoveredNode === link.toId,
         color: link.color,
       };
     });
 
     setLinks(newLinks);
     setIsInitialized(true);
-  }, [containerDimensions, activeNode]);
+  }, [containerDimensions, hoveredNode]);
 
   // Calculate link style for each connection
   const getLinkStyle = (from: number[], to: number[]) => {
@@ -140,13 +139,14 @@ const NeuralNetwork: React.FC<NeuralNetworkProps> = ({
             key={node.id}
             className="absolute transform -translate-x-1/2 -translate-y-1/2"
             style={{ left: x, top: y }}
+            onMouseEnter={() => setHoveredNode(node.id)}
+            onMouseLeave={() => setHoveredNode(null)}
           >
             <NetworkNode
               label={node.label}
               color={node.color as "cyan" | "purple" | "blue" | "white"}
               size="md"
-              active={activeNode === node.id}
-              onClick={() => onNodeClick && onNodeClick(node.id)}
+              active={hoveredNode === node.id}
             />
           </div>
         );

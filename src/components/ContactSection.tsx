@@ -1,9 +1,7 @@
 
 import React, { useState } from "react";
 import GlassCard from "./GlassCard";
-import { cn } from "@/lib/utils";
-import { ChevronRight, Mail, MessageSquare, Send, Linkedin, Instagram } from "lucide-react";
-import { toast } from "sonner";
+import { Send, Mail, Instagram, Linkedin } from "lucide-react";
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -11,46 +9,33 @@ const ContactSection: React.FC = () => {
     email: "",
     message: "",
   });
-  
-  const [isSending, setIsSending] = useState(false);
-  const [commandText, setCommandText] = useState("");
-  
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  
-  const handleSubmit = async (e: React.FormEvent) => {
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Simulate sending message
-    setIsSending(true);
-    setCommandText("Establishing secure connection...");
-    
+    setIsSubmitting(true);
+
+    // Simulate API call
     setTimeout(() => {
-      setCommandText("Encrypting message data...");
-      
+      console.log("Form submitted:", formData);
+      setIsSubmitting(false);
+      setSubmitted(true);
+      setFormData({ name: "", email: "", message: "" });
+
+      // Reset submitted state after a few seconds
       setTimeout(() => {
-        setCommandText("Transmitting message...");
-        
-        setTimeout(() => {
-          setCommandText("Message delivered successfully!");
-          setIsSending(false);
-          
-          // Reset form
-          setFormData({
-            name: "",
-            email: "",
-            message: "",
-          });
-          
-          // Show success toast
-          toast.success("Message sent successfully!", {
-            description: "I'll get back to you as soon as possible.",
-          });
-        }, 800);
-      }, 600);
-    }, 500);
+        setSubmitted(false);
+      }, 3000);
+    }, 1500);
   };
 
   return (
@@ -59,176 +44,202 @@ const ContactSection: React.FC = () => {
         {/* Section Heading */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
-            Contact <span className="text-gradient">Terminal</span>
+            Let's <span className="text-gradient">Connect</span>
           </h2>
           <p className="text-sci-gray max-w-lg mx-auto">
-            Send a message through the secure transmission system.
+            Feel free to reach out for collaborations, opportunities, or just a
+            tech chat.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Left Column - Contact Info */}
-          <div>
-            <GlassCard className="h-full flex flex-col" fadeOnScroll slideDirection="left">
-              <h3 className="text-xl font-semibold text-white mb-6 flex items-center">
-                <Mail className="mr-2 text-sci-cyan" size={20} />
-                Communication Channels
-              </h3>
-              
-              <div className="space-y-6 flex-grow">
-                <div>
-                  <div className="flex items-center mb-2">
-                    <ChevronRight size={16} className="text-sci-cyan mr-2" />
-                    <h4 className="text-white font-medium">Email</h4>
-                  </div>
-                  <p className="text-sci-gray pl-6">contact@example.com</p>
-                </div>
-                
-                <div>
-                  <div className="flex items-center mb-2">
-                    <ChevronRight size={16} className="text-sci-cyan mr-2" />
-                    <h4 className="text-white font-medium">Location</h4>
-                  </div>
-                  <p className="text-sci-gray pl-6">San Francisco, CA</p>
-                </div>
-                
-                <div>
-                  <div className="flex items-center mb-2">
-                    <ChevronRight size={16} className="text-sci-cyan mr-2" />
-                    <h4 className="text-white font-medium">Working Hours</h4>
-                  </div>
-                  <p className="text-sci-gray pl-6">Mon-Fri: 9am - 5pm PST</p>
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+          {/* Contact Form */}
+          <GlassCard className="p-8">
+            <h3 className="text-xl font-semibold text-white mb-6">
+              Send a Message
+            </h3>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-white mb-1"
+                >
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-2 rounded-md bg-sci-muted/30 border border-sci-muted/50 text-white focus:outline-none focus:ring-2 focus:ring-sci-cyan/30"
+                  placeholder="Your name"
+                />
               </div>
-              
-              <div className="mt-8 pt-6 border-t border-sci-muted/30">
-                <p className="text-sci-gray text-sm mb-4">
-                  <span className="text-sci-cyan">{'>'}</span> Connect with me on social media
-                </p>
-                <div className="flex gap-3">
-                  <a 
-                    href="mailto:contact@example.com" 
-                    className="p-3 rounded-lg bg-sci-muted/30 hover:bg-sci-cyan/20 hover:text-sci-cyan transition-colors text-white flex items-center gap-2"
-                  >
-                    <Mail size={18} />
-                    <span>Email</span>
-                  </a>
-                  <a 
-                    href="https://instagram.com" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="p-3 rounded-lg bg-sci-muted/30 hover:bg-purple-500/20 hover:text-purple-400 transition-colors text-white flex items-center gap-2"
-                  >
-                    <Instagram size={18} />
-                    <span>Instagram</span>
-                  </a>
-                  <a 
-                    href="https://linkedin.com" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="p-3 rounded-lg bg-sci-muted/30 hover:bg-blue-500/20 hover:text-blue-400 transition-colors text-white flex items-center gap-2"
-                  >
-                    <Linkedin size={18} />
-                    <span>LinkedIn</span>
-                  </a>
-                </div>
+
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-white mb-1"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-2 rounded-md bg-sci-muted/30 border border-sci-muted/50 text-white focus:outline-none focus:ring-2 focus:ring-sci-cyan/30"
+                  placeholder="your.email@example.com"
+                />
               </div>
-            </GlassCard>
-          </div>
-          
-          {/* Right Column - Contact Form */}
-          <div>
-            <GlassCard className="relative" fadeOnScroll slideDirection="right">
-              <h3 className="text-xl font-semibold text-white mb-6 flex items-center">
-                <MessageSquare className="mr-2 text-sci-purple" size={20} />
-                Message Terminal
-              </h3>
-              
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-sci-gray mb-1">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 rounded-md bg-sci-darker border border-sci-muted/50 text-white focus:border-sci-cyan focus:outline-none focus:ring-1 focus:ring-sci-cyan/50 transition-colors"
-                    disabled={isSending}
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-sci-gray mb-1">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 rounded-md bg-sci-darker border border-sci-muted/50 text-white focus:border-sci-cyan focus:outline-none focus:ring-1 focus:ring-sci-cyan/50 transition-colors"
-                    disabled={isSending}
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-sci-gray mb-1">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={5}
-                    className="w-full px-4 py-2 rounded-md bg-sci-darker border border-sci-muted/50 text-white focus:border-sci-cyan focus:outline-none focus:ring-1 focus:ring-sci-cyan/50 transition-colors resize-none"
-                    disabled={isSending}
-                  />
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  {isSending ? (
-                    <div className="text-sm text-sci-cyan animate-pulse font-mono">
-                      <span className="mr-2">{'>'}</span>
-                      {commandText}
-                    </div>
+
+              <div>
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-white mb-1"
+                >
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={5}
+                  className="w-full px-4 py-2 rounded-md bg-sci-muted/30 border border-sci-muted/50 text-white focus:outline-none focus:ring-2 focus:ring-sci-cyan/30 resize-none"
+                  placeholder="Your message..."
+                />
+              </div>
+
+              <div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full px-6 py-3 bg-gradient-to-r from-sci-cyan to-sci-purple text-white rounded-md font-medium flex items-center justify-center hover:shadow-lg hover:shadow-sci-cyan/20 transition-all duration-300 disabled:opacity-70"
+                >
+                  {isSubmitting ? (
+                    <span className="flex items-center">
+                      <svg
+                        className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      Sending...
+                    </span>
+                  ) : submitted ? (
+                    <span className="flex items-center">
+                      Message Sent
+                      <svg
+                        className="ml-2 h-4 w-4 text-white"
+                        fill="none"
+                        height="24"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </span>
                   ) : (
-                    <div className="text-sm text-sci-gray font-mono">
-                      <span className="mr-2 text-sci-cyan">{'>'}</span>
-                      Ready to transmit
-                    </div>
+                    <span className="flex items-center">
+                      Send Message
+                      <Send className="ml-2 h-4 w-4" />
+                    </span>
                   )}
-                  
-                  <button
-                    type="submit"
-                    className={cn(
-                      "px-6 py-2 rounded-md font-medium transition-all duration-300",
-                      "bg-gradient-to-r from-sci-cyan to-sci-purple text-white",
-                      "hover:shadow-lg hover:shadow-sci-cyan/20",
-                      "flex items-center gap-2",
-                      isSending && "opacity-70 cursor-not-allowed"
-                    )}
-                    disabled={isSending}
-                  >
-                    <Send size={16} />
-                    Send Message
-                  </button>
-                </div>
-              </form>
-              
-              {/* Decorative elements */}
-              <div className="absolute -top-2 -right-2">
-                <div className="w-4 h-4 rounded-full bg-sci-purple opacity-70 animate-pulse-slow" />
+                </button>
               </div>
-              <div className="absolute -bottom-2 -left-2">
-                <div className="w-4 h-4 rounded-full bg-sci-cyan opacity-70 animate-pulse-slow" />
+            </form>
+          </GlassCard>
+
+          {/* Contact Info */}
+          <div className="space-y-6">
+            <GlassCard className="p-8">
+              <h3 className="text-xl font-semibold text-white mb-6">
+                Contact Information
+              </h3>
+              <p className="text-sci-gray mb-4">
+                I'm currently available for freelance work, collaborations, or
+                full-time positions. Let's build something amazing together!
+              </p>
+              <p className="text-sci-gray">
+                Based in: <span className="text-white">San Francisco, CA</span>
+              </p>
+            </GlassCard>
+
+            {/* Social Media Links */}
+            <GlassCard className="p-8">
+              <h3 className="text-xl font-semibold text-white mb-6">
+                Connect With Me
+              </h3>
+              
+              <div className="grid grid-cols-1 gap-4">
+                <a
+                  href="mailto:example@domain.com"
+                  className="flex items-center p-3 rounded-md transition-all duration-300 bg-sci-muted/30 hover:bg-sci-muted/50 group"
+                >
+                  <div className="mr-3 p-2 rounded-full bg-sci-cyan/20 group-hover:bg-sci-cyan/30 transition-colors">
+                    <Mail className="h-5 w-5 text-sci-cyan" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-white font-medium">Email</h4>
+                    <p className="text-sci-gray text-sm">example@domain.com</p>
+                  </div>
+                </a>
+                
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center p-3 rounded-md transition-all duration-300 bg-sci-muted/30 hover:bg-sci-muted/50 group"
+                >
+                  <div className="mr-3 p-2 rounded-full bg-sci-purple/20 group-hover:bg-sci-purple/30 transition-colors">
+                    <Instagram className="h-5 w-5 text-sci-purple" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-white font-medium">Instagram</h4>
+                    <p className="text-sci-gray text-sm">@username</p>
+                  </div>
+                </a>
+                
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center p-3 rounded-md transition-all duration-300 bg-sci-muted/30 hover:bg-sci-muted/50 group"
+                >
+                  <div className="mr-3 p-2 rounded-full bg-sci-cyan/20 group-hover:bg-sci-cyan/30 transition-colors">
+                    <Linkedin className="h-5 w-5 text-sci-cyan" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-white font-medium">LinkedIn</h4>
+                    <p className="text-sci-gray text-sm">linkedin.com/in/username</p>
+                  </div>
+                </a>
               </div>
             </GlassCard>
           </div>

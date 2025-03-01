@@ -12,68 +12,85 @@ const NavBar: React.FC<NavBarProps> = ({ activeSection, onNavigate }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Define navigation items
+  const navItems = [
+    { id: "about", label: "About" },
+    { id: "skills", label: "Skills" },
+    { id: "experience", label: "Experience" },
+    { id: "projects", label: "Projects" },
+    { id: "certifications", label: "Certifications" },
+    { id: "contact", label: "Contact" },
+  ];
+
+  // Handle scroll effects
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      const offset = window.scrollY;
+      if (offset > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
-  const links = [
-    { name: "About", id: "about" },
-    { name: "Skills", id: "skills" },
-    { name: "Experience", id: "experience" },
-    { name: "Projects", id: "projects" },
-    { name: "Contact", id: "contact" },
-  ];
+  // Handle navigation and close mobile menu
+  const handleNavigation = (section: string) => {
+    onNavigate(section);
+    setMobileMenuOpen(false);
+  };
 
   return (
-    <header
+    <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled 
-          ? "bg-sci-darker/80 backdrop-blur-md py-3 shadow-lg" 
-          : "bg-transparent py-5"
+        "fixed top-0 left-0 w-full z-50 transition-all duration-300",
+        isScrolled
+          ? "py-3 bg-sci-darker/90 backdrop-blur-md shadow-md"
+          : "py-5 bg-transparent"
       )}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <a
-          href="#"
-          className="text-xl font-bold text-white flex items-center gap-2"
-          onClick={(e) => {
-            e.preventDefault();
-            onNavigate("hero");
-          }}
-        >
-          <span className="text-gradient">NexusSync</span>
-        </a>
+        {/* Logo */}
+        <div className="flex items-center">
+          <button
+            onClick={() => onNavigate("hero")}
+            className="text-white font-semibold text-lg md:text-xl group flex items-center"
+          >
+            <div className="h-8 w-8 rounded-md mr-2 bg-gradient-to-br from-sci-cyan to-sci-purple flex items-center justify-center">
+              <span className="text-white font-mono">AI</span>
+            </div>
+            <span className="group-hover:text-sci-cyan transition-colors">
+              Neural<span className="text-sci-cyan">Portfolio</span>
+            </span>
+          </button>
+        </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
-          {links.map((link) => (
+        <div className="hidden md:flex items-center space-x-1">
+          {navItems.map((item) => (
             <button
-              key={link.id}
-              onClick={() => onNavigate(link.id)}
+              key={item.id}
+              onClick={() => handleNavigation(item.id)}
               className={cn(
-                "text-sm font-medium transition-all duration-300 relative",
-                activeSection === link.id
-                  ? "text-sci-cyan font-semibold"
-                  : "text-sci-gray hover:text-white"
+                "px-4 py-2 rounded-md text-sm transition-all duration-300",
+                activeSection === item.id
+                  ? "text-white bg-sci-muted/40 border-b-2 border-sci-cyan"
+                  : "text-sci-gray hover:text-white hover:bg-sci-muted/20"
               )}
             >
-              {link.name}
-              {activeSection === link.id && (
-                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-sci-cyan mt-0.5 animate-fade-in" />
-              )}
+              {item.label}
             </button>
           ))}
-        </nav>
+        </div>
 
-        {/* Mobile Navigation Button */}
-        <button 
-          className="md:hidden text-sci-gray hover:text-white"
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden text-sci-gray hover:text-white transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -82,29 +99,26 @@ const NavBar: React.FC<NavBarProps> = ({ activeSection, onNavigate }) => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-sci-darker/95 backdrop-blur-md animate-fade-in">
-          <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-            {links.map((link) => (
+        <div className="md:hidden bg-sci-darker/95 backdrop-blur-md border-t border-sci-muted/20 animate-fade-in">
+          <div className="container mx-auto px-4 py-4">
+            {navItems.map((item) => (
               <button
-                key={link.id}
-                onClick={() => {
-                  onNavigate(link.id);
-                  setMobileMenuOpen(false);
-                }}
+                key={item.id}
+                onClick={() => handleNavigation(item.id)}
                 className={cn(
-                  "text-base font-medium py-2 px-4 rounded-md transition-all duration-300",
-                  activeSection === link.id
-                    ? "bg-sci-muted/20 text-sci-cyan"
-                    : "text-sci-gray hover:bg-sci-muted/10 hover:text-white"
+                  "block w-full text-left px-4 py-3 rounded-md transition-all duration-300 mb-1",
+                  activeSection === item.id
+                    ? "bg-sci-muted/30 text-white border-l-2 border-sci-cyan"
+                    : "text-sci-gray hover:text-white hover:bg-sci-muted/10"
                 )}
               >
-                {link.name}
+                {item.label}
               </button>
             ))}
           </div>
         </div>
       )}
-    </header>
+    </nav>
   );
 };
 
