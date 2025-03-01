@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import GlassCard from "./GlassCard";
 import { cn } from "@/lib/utils";
-import NetworkNode from "./NetworkNode";
 import { BriefcaseBusiness, Calendar, ChevronRight, MapPin } from "lucide-react";
 
 interface Experience {
@@ -68,7 +67,7 @@ const ExperienceSection: React.FC = () => {
       <div className="container max-w-6xl px-4 mx-auto">
         {/* Section Heading */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 cyberpunk-text">
             Professional <span className="text-gradient">Experience</span>
           </h2>
           <p className="text-sci-gray max-w-lg mx-auto">
@@ -76,7 +75,7 @@ const ExperienceSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Neural Timeline */}
+        {/* Timeline without network nodes */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-16">
           {/* Timeline navigation on left */}
           <div className="md:col-span-4 flex flex-col space-y-4">
@@ -84,33 +83,13 @@ const ExperienceSection: React.FC = () => {
               <button
                 key={exp.id}
                 className={cn(
-                  "text-left transition-all duration-300 relative pl-8",
-                  activeExp === exp.id ? "scale-105" : "opacity-70 hover:opacity-100"
+                  "text-left transition-all duration-300 relative pl-8 py-3 border-l-2",
+                  activeExp === exp.id 
+                    ? "border-l-sci-cyan scale-102 bg-sci-cyan/5" 
+                    : "border-l-sci-muted/30 opacity-70 hover:opacity-100 hover:border-l-sci-cyan/50"
                 )}
                 onClick={() => setActiveExp(exp.id)}
               >
-                <div className="absolute left-0 top-1">
-                  <NetworkNode 
-                    size="md" 
-                    color={activeExp === exp.id ? "cyan" : "purple"}
-                    active={activeExp === exp.id}
-                  />
-                  
-                  {/* Connect nodes with lines, except for the last one */}
-                  {index < experiences.length - 1 && (
-                    <div 
-                      className={cn(
-                        "absolute top-4 left-[10px] w-px h-14 bg-gradient-to-b",
-                        activeExp === exp.id && experiences[index + 1].id === activeExp 
-                          ? "from-sci-cyan to-sci-purple" 
-                          : activeExp === experiences[index + 1].id 
-                            ? "from-sci-purple to-sci-cyan" 
-                            : "from-sci-muted to-sci-muted"
-                      )}
-                    />
-                  )}
-                </div>
-                
                 <div className={cn(
                   "transition-all duration-300",
                   activeExp === exp.id && "text-glow"
@@ -140,7 +119,7 @@ const ExperienceSection: React.FC = () => {
                 {activeExp === exp.id && (
                   <GlassCard className="animate-fade-in border-sci-cyan/10">
                     <div className="mb-6">
-                      <h3 className="text-2xl font-semibold text-white mb-1">{exp.title}</h3>
+                      <h3 className="text-2xl font-semibold text-white mb-1 cyberpunk-text">{exp.title}</h3>
                       <div className="flex flex-wrap items-center text-sci-gray gap-x-4 gap-y-2">
                         <div className="flex items-center">
                           <BriefcaseBusiness size={16} className="mr-1 text-sci-cyan" />

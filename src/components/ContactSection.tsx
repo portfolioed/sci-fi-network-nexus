@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import GlassCard from "./GlassCard";
-import { Send, Mail, Instagram, Linkedin } from "lucide-react";
+import { Mail, Send, Github, Linkedin, Instagram } from "lucide-react";
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -10,236 +10,168 @@ const ContactSection: React.FC = () => {
     message: "",
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleChange = (
+  const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
-    // Simulate API call
-    setTimeout(() => {
-      console.log("Form submitted:", formData);
-      setIsSubmitting(false);
-      setSubmitted(true);
-      setFormData({ name: "", email: "", message: "" });
-
-      // Reset submitted state after a few seconds
-      setTimeout(() => {
-        setSubmitted(false);
-      }, 3000);
-    }, 1500);
+    console.log("Form submitted:", formData);
+    // Would normally send the form data to a server here
+    
+    // Show success message
+    alert("Message sent successfully!");
+    
+    // Reset form
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
+    });
   };
 
   return (
-    <section className="min-h-screen flex flex-col justify-center items-center py-20 relative">
-      <div className="container max-w-6xl px-4 mx-auto">
-        {/* Section Heading */}
+    <section className="py-20 relative">
+      <div className="absolute inset-0 bg-gradient-to-b from-sci-darker to-sci-dark opacity-80 z-0"></div>
+      <div className="container max-w-6xl px-4 mx-auto relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
-            Let's <span className="text-gradient">Connect</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 cyberpunk-text">
+            Get in <span className="text-gradient">Touch</span>
           </h2>
           <p className="text-sci-gray max-w-lg mx-auto">
-            Feel free to reach out for collaborations, opportunities, or just a
-            tech chat.
+            Have a project in mind or want to collaborate? Let's discuss how we can work together.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        <div className="contact-form-container">
           {/* Contact Form */}
-          <GlassCard className="p-8">
-            <h3 className="text-xl font-semibold text-white mb-6">
-              Send a Message
-            </h3>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-white mb-1"
-                >
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 rounded-md bg-sci-muted/30 border border-sci-muted/50 text-white focus:outline-none focus:ring-2 focus:ring-sci-cyan/30"
-                  placeholder="Your name"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-white mb-1"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 rounded-md bg-sci-muted/30 border border-sci-muted/50 text-white focus:outline-none focus:ring-2 focus:ring-sci-cyan/30"
-                  placeholder="your.email@example.com"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-white mb-1"
-                >
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  className="w-full px-4 py-2 rounded-md bg-sci-muted/30 border border-sci-muted/50 text-white focus:outline-none focus:ring-2 focus:ring-sci-cyan/30 resize-none"
-                  placeholder="Your message..."
-                />
-              </div>
-
-              <div>
+          <div className="mb-8 md:mb-0">
+            <GlassCard className="contact-form">
+              <form onSubmit={handleSubmit} className="space-y-6 contact-form-content">
+                <h3 className="text-xl font-semibold text-white mb-4">
+                  Send a Message
+                </h3>
+                
+                <div>
+                  <label htmlFor="name" className="block text-sm text-sci-gray mb-1">
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-2 bg-sci-muted/30 border border-sci-muted/50 rounded-md focus:outline-none focus:ring-1 focus:ring-sci-cyan text-white"
+                    placeholder="John Doe"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="email" className="block text-sm text-sci-gray mb-1">
+                    Your Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-2 bg-sci-muted/30 border border-sci-muted/50 rounded-md focus:outline-none focus:ring-1 focus:ring-sci-cyan text-white"
+                    placeholder="john@example.com"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="message" className="block text-sm text-sci-gray mb-1">
+                    Your Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    required
+                    rows={5}
+                    className="w-full px-4 py-2 bg-sci-muted/30 border border-sci-muted/50 rounded-md focus:outline-none focus:ring-1 focus:ring-sci-cyan text-white"
+                    placeholder="Hello, I'd like to discuss a project..."
+                  ></textarea>
+                </div>
+                
                 <button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-sci-cyan to-sci-purple text-white rounded-md font-medium flex items-center justify-center hover:shadow-lg hover:shadow-sci-cyan/20 transition-all duration-300 disabled:opacity-70"
+                  className="w-full py-2 px-6 bg-gradient-to-r from-sci-cyan to-sci-purple text-white font-medium rounded-md hover:shadow-lg hover:shadow-sci-cyan/20 transition-all duration-300 flex items-center justify-center"
                 >
-                  {isSubmitting ? (
-                    <span className="flex items-center">
-                      <svg
-                        className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        ></circle>
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        ></path>
-                      </svg>
-                      Sending...
-                    </span>
-                  ) : submitted ? (
-                    <span className="flex items-center">
-                      Message Sent
-                      <svg
-                        className="ml-2 h-4 w-4 text-white"
-                        fill="none"
-                        height="24"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                        width="24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <polyline points="20 6 9 17 4 12"></polyline>
-                      </svg>
-                    </span>
-                  ) : (
-                    <span className="flex items-center">
-                      Send Message
-                      <Send className="ml-2 h-4 w-4" />
-                    </span>
-                  )}
+                  <Send size={18} className="mr-2" />
+                  Send Message
                 </button>
-              </div>
-            </form>
-          </GlassCard>
-
-          {/* Contact Info */}
-          <div className="space-y-6">
-            <GlassCard className="p-8">
-              <h3 className="text-xl font-semibold text-white mb-6">
-                Contact Information
-              </h3>
-              <p className="text-sci-gray mb-4">
-                I'm currently available for freelance work, collaborations, or
-                full-time positions. Let's build something amazing together!
-              </p>
-              <p className="text-sci-gray">
-                Based in: <span className="text-white">San Francisco, CA</span>
-              </p>
+              </form>
             </GlassCard>
+          </div>
 
-            {/* Social Media Links */}
-            <GlassCard className="p-8">
-              <h3 className="text-xl font-semibold text-white mb-6">
-                Connect With Me
-              </h3>
-              
-              <div className="grid grid-cols-1 gap-4">
-                <a
-                  href="mailto:example@domain.com"
-                  className="flex items-center p-3 rounded-md transition-all duration-300 bg-sci-muted/30 hover:bg-sci-muted/50 group"
-                >
-                  <div className="mr-3 p-2 rounded-full bg-sci-cyan/20 group-hover:bg-sci-cyan/30 transition-colors">
-                    <Mail className="h-5 w-5 text-sci-cyan" />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="text-white font-medium">Email</h4>
-                    <p className="text-sci-gray text-sm">example@domain.com</p>
-                  </div>
-                </a>
+          {/* Contact Information */}
+          <div>
+            <GlassCard className="h-full flex flex-col justify-between">
+              <div>
+                <h3 className="text-xl font-semibold text-white mb-6">
+                  Contact Information
+                </h3>
                 
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center p-3 rounded-md transition-all duration-300 bg-sci-muted/30 hover:bg-sci-muted/50 group"
-                >
-                  <div className="mr-3 p-2 rounded-full bg-sci-purple/20 group-hover:bg-sci-purple/30 transition-colors">
-                    <Instagram className="h-5 w-5 text-sci-purple" />
+                <div className="space-y-6">
+                  <div className="flex items-start">
+                    <div className="mr-4 bg-sci-cyan/20 p-3 rounded-lg">
+                      <Mail className="text-sci-cyan h-6 w-6" />
+                    </div>
+                    <div>
+                      <h4 className="text-white font-medium mb-1">Email</h4>
+                      <p className="text-sci-gray">
+                        contact@neuralportfolio.com
+                      </p>
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <h4 className="text-white font-medium">Instagram</h4>
-                    <p className="text-sci-gray text-sm">@username</p>
-                  </div>
-                </a>
+                </div>
+              </div>
+
+              <div className="mt-10 pt-6 border-t border-sci-muted/30">
+                <h4 className="text-white font-medium mb-4">Connect with me</h4>
                 
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center p-3 rounded-md transition-all duration-300 bg-sci-muted/30 hover:bg-sci-muted/50 group"
-                >
-                  <div className="mr-3 p-2 rounded-full bg-sci-cyan/20 group-hover:bg-sci-cyan/30 transition-colors">
-                    <Linkedin className="h-5 w-5 text-sci-cyan" />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="text-white font-medium">LinkedIn</h4>
-                    <p className="text-sci-gray text-sm">linkedin.com/in/username</p>
-                  </div>
-                </a>
+                <div className="flex items-center justify-start space-x-4">
+                  <a 
+                    href="mailto:contact@neuralportfolio.com" 
+                    className="social-link cyberpunk-button"
+                    aria-label="Email me"
+                  >
+                    <Mail className="h-6 w-6" />
+                    <span className="ml-2">Mail</span>
+                  </a>
+                  
+                  <a 
+                    href="https://linkedin.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="social-link cyberpunk-button"
+                    aria-label="LinkedIn profile"
+                  >
+                    <Linkedin className="h-6 w-6" />
+                    <span className="ml-2">LinkedIn</span>
+                  </a>
+                  
+                  <a 
+                    href="https://instagram.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="social-link cyberpunk-button"
+                    aria-label="Instagram profile"
+                  >
+                    <Instagram className="h-6 w-6" />
+                    <span className="ml-2">Instagram</span>
+                  </a>
+                </div>
               </div>
             </GlassCard>
           </div>

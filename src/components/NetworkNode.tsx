@@ -16,7 +16,7 @@ const NetworkNode: React.FC<NetworkNodeProps> = ({
   className,
   size = "md",
   color = "cyan",
-  pulsing = true,
+  pulsing = false,
   label,
   onClick,
   active = false,
@@ -51,10 +51,10 @@ const NetworkNode: React.FC<NetworkNodeProps> = ({
     >
       <div
         className={cn(
-          "rounded-full transition-all duration-300",
+          "rounded-full transition-all duration-700",
           sizeClasses[size],
           colorClasses[color],
-          pulsing && "animate-pulse-slow",
+          pulsing && "animate-[pulse_3s_cubic-bezier(0.4,0,0.6,1)_infinite]",
           active && "ring-2 ring-white"
         )}
         style={{

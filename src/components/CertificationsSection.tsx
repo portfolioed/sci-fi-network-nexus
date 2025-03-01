@@ -1,6 +1,5 @@
 
 import React, { useState, useRef } from "react";
-import GlassCard from "./GlassCard";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 
 interface Certificate {
@@ -71,7 +70,7 @@ const CertificationsSection: React.FC = () => {
       <div className="container max-w-6xl px-4 mx-auto">
         {/* Section Heading */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 cyberpunk-text">
             Professional <span className="text-gradient">Certifications</span>
           </h2>
           <p className="text-sci-gray max-w-lg mx-auto">
@@ -112,35 +111,39 @@ const CertificationsSection: React.FC = () => {
                   key={cert.id} 
                   className="w-full md:w-1/2 flex-shrink-0 px-4"
                 >
-                  <GlassCard className="h-full flex flex-col">
-                    <div className="flex-1 mb-4">
-                      <div className="h-40 -mx-6 -mt-6 mb-6 bg-gradient-to-br from-sci-muted to-sci-darker flex items-center justify-center border-b border-sci-cyan/10">
+                  <div className="cert-card h-48">
+                    <div className="w-1/3 flex-shrink-0">
+                      <div className="h-full bg-gradient-to-br from-sci-muted to-sci-darker flex items-center justify-center border-r border-sci-cyan/10">
                         <img 
                           src={cert.image} 
                           alt={cert.name} 
                           className="h-full w-full object-cover opacity-70"
                         />
                       </div>
-                      
-                      <h3 className="text-xl font-semibold text-white mb-2">{cert.name}</h3>
-                      
-                      <div className="text-sci-gray mb-2">
-                        <span className="block">Issued by: {cert.issuer}</span>
-                        <span className="block">Date: {cert.date}</span>
-                      </div>
                     </div>
                     
-                    <div className="mt-auto pt-4 border-t border-sci-muted/30">
-                      <a 
-                        href={cert.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-sci-cyan/20 text-white hover:bg-sci-cyan/30 transition-colors"
-                      >
-                        View Certificate <ExternalLink size={16} />
-                      </a>
+                    <div className="w-2/3 pl-4 flex flex-col justify-between">
+                      <div>
+                        <h3 className="text-xl font-semibold text-white mb-2">{cert.name}</h3>
+                        
+                        <div className="text-sci-gray text-sm mb-2">
+                          <span className="block">Issued by: {cert.issuer}</span>
+                          <span className="block">Date: {cert.date}</span>
+                        </div>
+                      </div>
+                      
+                      <div className="mt-auto">
+                        <a 
+                          href={cert.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-sci-cyan/20 text-white hover:bg-sci-cyan/30 transition-colors"
+                        >
+                          View Certificate <ExternalLink size={16} />
+                        </a>
+                      </div>
                     </div>
-                  </GlassCard>
+                  </div>
                 </div>
               ))}
             </div>
