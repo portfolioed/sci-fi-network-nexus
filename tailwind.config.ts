@@ -63,7 +63,8 @@ export default {
 				'sci-gray': '#8892B0',
 			},
 			fontFamily: {
-				sans: ["Inter", "sans-serif"],
+				sans: ["Rajdhani", "sans-serif"],
+				orbitron: ["Orbitron", "sans-serif"],
 				mono: ["JetBrains Mono", "monospace"],
 			},
 			borderRadius: {

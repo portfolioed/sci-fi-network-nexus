@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import GlassCard from "./GlassCard";
 import { cn } from "@/lib/utils";
-import { ChevronRight, Mail, MessageSquare, Send } from "lucide-react";
+import { ChevronRight, Mail, MessageSquare, Send, Linkedin, Instagram } from "lucide-react";
 import { toast } from "sonner";
 
 const ContactSection: React.FC = () => {
@@ -69,7 +69,7 @@ const ContactSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Left Column - Contact Info */}
           <div>
-            <GlassCard className="h-full flex flex-col">
+            <GlassCard className="h-full flex flex-col" fadeOnScroll slideDirection="left">
               <h3 className="text-xl font-semibold text-white mb-6 flex items-center">
                 <Mail className="mr-2 text-sci-cyan" size={20} />
                 Communication Channels
@@ -102,16 +102,43 @@ const ContactSection: React.FC = () => {
               </div>
               
               <div className="mt-8 pt-6 border-t border-sci-muted/30">
-                <p className="text-sci-gray text-sm">
-                  <span className="text-sci-cyan">></span> Expect a response within 24-48 hours.
+                <p className="text-sci-gray text-sm mb-4">
+                  <span className="text-sci-cyan">{'>'}</span> Connect with me on social media
                 </p>
+                <div className="flex gap-3">
+                  <a 
+                    href="mailto:contact@example.com" 
+                    className="p-3 rounded-lg bg-sci-muted/30 hover:bg-sci-cyan/20 hover:text-sci-cyan transition-colors text-white flex items-center gap-2"
+                  >
+                    <Mail size={18} />
+                    <span>Email</span>
+                  </a>
+                  <a 
+                    href="https://instagram.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="p-3 rounded-lg bg-sci-muted/30 hover:bg-purple-500/20 hover:text-purple-400 transition-colors text-white flex items-center gap-2"
+                  >
+                    <Instagram size={18} />
+                    <span>Instagram</span>
+                  </a>
+                  <a 
+                    href="https://linkedin.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="p-3 rounded-lg bg-sci-muted/30 hover:bg-blue-500/20 hover:text-blue-400 transition-colors text-white flex items-center gap-2"
+                  >
+                    <Linkedin size={18} />
+                    <span>LinkedIn</span>
+                  </a>
+                </div>
               </div>
             </GlassCard>
           </div>
           
           {/* Right Column - Contact Form */}
           <div>
-            <GlassCard className="relative">
+            <GlassCard className="relative" fadeOnScroll slideDirection="right">
               <h3 className="text-xl font-semibold text-white mb-6 flex items-center">
                 <MessageSquare className="mr-2 text-sci-purple" size={20} />
                 Message Terminal
@@ -169,12 +196,12 @@ const ContactSection: React.FC = () => {
                 <div className="flex items-center justify-between">
                   {isSending ? (
                     <div className="text-sm text-sci-cyan animate-pulse font-mono">
-                      <span className="mr-2">></span>
+                      <span className="mr-2">{'>'}</span>
                       {commandText}
                     </div>
                   ) : (
                     <div className="text-sm text-sci-gray font-mono">
-                      <span className="mr-2 text-sci-cyan">></span>
+                      <span className="mr-2 text-sci-cyan">{'>'}</span>
                       Ready to transmit
                     </div>
                   )}

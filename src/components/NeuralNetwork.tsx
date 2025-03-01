@@ -26,13 +26,13 @@ const NeuralNetwork: React.FC<NeuralNetworkProps> = ({
   const [containerDimensions, setContainerDimensions] = useState({ width: 0, height: 0 });
   const [isInitialized, setIsInitialized] = useState(false);
 
-  // Node positions and connections will be calculated based on container dimensions
+  // More random node positions for a more organic network
   const nodes = [
-    { id: "about", label: "About", position: [0.5, 0.2], color: "cyan" },
-    { id: "skills", label: "Skills", position: [0.3, 0.4], color: "purple" },
-    { id: "experience", label: "Experience", position: [0.7, 0.4], color: "cyan" },
-    { id: "projects", label: "Projects", position: [0.3, 0.6], color: "cyan" },
-    { id: "contact", label: "Contact", position: [0.7, 0.6], color: "purple" },
+    { id: "about", label: "About", position: [0.3 + Math.random() * 0.4, 0.2 + Math.random() * 0.15], color: "cyan" },
+    { id: "skills", label: "Skills", position: [0.2 + Math.random() * 0.2, 0.4 + Math.random() * 0.2], color: "purple" },
+    { id: "experience", label: "Experience", position: [0.6 + Math.random() * 0.2, 0.35 + Math.random() * 0.2], color: "cyan" },
+    { id: "projects", label: "Projects", position: [0.25 + Math.random() * 0.15, 0.6 + Math.random() * 0.15], color: "cyan" },
+    { id: "contact", label: "Contact", position: [0.6 + Math.random() * 0.2, 0.65 + Math.random() * 0.1], color: "purple" },
   ];
 
   // Calculate node connections
@@ -43,6 +43,10 @@ const NeuralNetwork: React.FC<NeuralNetworkProps> = ({
     { fromId: "experience", toId: "projects", color: "rgba(0, 234, 255, 0.4)" },
     { fromId: "projects", toId: "contact", color: "rgba(0, 234, 255, 0.4)" },
     { fromId: "experience", toId: "contact", color: "rgba(122, 21, 247, 0.4)" },
+    // Add a few more random connections for a more complex network
+    { fromId: "about", toId: "projects", color: "rgba(122, 21, 247, 0.3)" },
+    { fromId: "skills", toId: "contact", color: "rgba(0, 234, 255, 0.3)" },
+    { fromId: "skills", toId: "experience", color: "rgba(122, 21, 247, 0.3)" },
   ];
 
   // Initialize and handle window resize
@@ -149,10 +153,10 @@ const NeuralNetwork: React.FC<NeuralNetworkProps> = ({
       })}
 
       {/* Background Nodes - purely decorative */}
-      {isInitialized && Array.from({ length: 20 }).map((_, i) => {
+      {isInitialized && Array.from({ length: 35 }).map((_, i) => {
         const x = Math.random() * containerDimensions.width;
         const y = Math.random() * containerDimensions.height;
-        const size = Math.random() > 0.7 ? "sm" : "sm";
+        const size = Math.random() > 0.8 ? "sm" : "sm";
         
         return (
           <div
@@ -167,7 +171,7 @@ const NeuralNetwork: React.FC<NeuralNetworkProps> = ({
             <NetworkNode
               size={size as "sm" | "md"}
               color={Math.random() > 0.5 ? "cyan" : "purple"}
-              pulsing={Math.random() > 0.5}
+              pulsing={Math.random() > 0.3}
             />
           </div>
         );

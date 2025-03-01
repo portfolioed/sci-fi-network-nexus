@@ -11,6 +11,7 @@ import { ArrowDown } from "lucide-react";
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState("hero");
+  const [scrollProgress, setScrollProgress] = useState(0);
   const heroRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
@@ -80,8 +81,30 @@ const Index = () => {
     };
   }, []);
 
+  // Track scroll progress
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.body.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / totalHeight) * 100;
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <div className="bg-sci-darker min-h-screen text-white">
+      {/* Scroll Progress Bar */}
+      <div className="scroll-progress-container">
+        <div 
+          className="scroll-progress-bar" 
+          style={{ width: `${scrollProgress}%` }}
+        />
+      </div>
+
       <NavBar activeSection={activeSection} onNavigate={handleNavigate} />
 
       {/* Hero Section with Neural Network */}
