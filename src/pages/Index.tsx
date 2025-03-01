@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import NavBar from "@/components/NavBar";
 import AboutSection from "@/components/AboutSection";
@@ -10,7 +9,6 @@ import ContactSection from "@/components/ContactSection";
 import NeuralNetwork from "@/components/NeuralNetwork";
 import ScrollAnimations from "@/components/ScrollAnimations";
 import { ArrowDown } from "lucide-react";
-
 const Index = () => {
   const [activeSection, setActiveSection] = useState("hero");
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -25,9 +23,8 @@ const Index = () => {
   // Handle section navigation
   const handleNavigate = (section: string) => {
     const scrollOptions: ScrollIntoViewOptions = {
-      behavior: "smooth",
+      behavior: "smooth"
     };
-
     if (section === "hero") {
       heroRef.current?.scrollIntoView(scrollOptions);
     } else if (section === "about") {
@@ -50,36 +47,50 @@ const Index = () => {
     const options = {
       root: null,
       rootMargin: "0px",
-      threshold: 0.2,
+      threshold: 0.2
     };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
           setActiveSection(entry.target.id);
         }
       });
     }, options);
-
-    const sections = [
-      { ref: heroRef, id: "hero" },
-      { ref: aboutRef, id: "about" },
-      { ref: skillsRef, id: "skills" },
-      { ref: experienceRef, id: "experience" },
-      { ref: projectsRef, id: "projects" },
-      { ref: certificationsRef, id: "certifications" },
-      { ref: contactRef, id: "contact" },
-    ];
-
-    sections.forEach(({ ref, id }) => {
+    const sections = [{
+      ref: heroRef,
+      id: "hero"
+    }, {
+      ref: aboutRef,
+      id: "about"
+    }, {
+      ref: skillsRef,
+      id: "skills"
+    }, {
+      ref: experienceRef,
+      id: "experience"
+    }, {
+      ref: projectsRef,
+      id: "projects"
+    }, {
+      ref: certificationsRef,
+      id: "certifications"
+    }, {
+      ref: contactRef,
+      id: "contact"
+    }];
+    sections.forEach(({
+      ref,
+      id
+    }) => {
       if (ref.current) {
         ref.current.id = id;
         observer.observe(ref.current);
       }
     });
-
     return () => {
-      sections.forEach(({ ref }) => {
+      sections.forEach(({
+        ref
+      }) => {
         if (ref.current) {
           observer.unobserve(ref.current);
         }
@@ -91,54 +102,43 @@ const Index = () => {
   useEffect(() => {
     const handleScroll = () => {
       const totalHeight = document.body.scrollHeight - window.innerHeight;
-      const progress = (window.scrollY / totalHeight) * 100;
+      const progress = window.scrollY / totalHeight * 100;
       setScrollProgress(progress);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  return (
-    <div className="bg-sci-darker min-h-screen text-white">
+  return <div className="bg-sci-darker min-h-screen text-white">
       {/* Scroll Progress Bar */}
       <div className="scroll-progress-container">
-        <div 
-          className="scroll-progress-bar" 
-          style={{ width: `${scrollProgress}%` }}
-        />
+        <div className="scroll-progress-bar" style={{
+        width: `${scrollProgress}%`
+      }} />
       </div>
 
       <NavBar activeSection={activeSection} onNavigate={handleNavigate} />
       <ScrollAnimations />
 
       {/* Hero Section with Neural Network */}
-      <div
-        ref={heroRef}
-        className="h-screen relative flex flex-col items-center justify-center overflow-hidden"
-      >
+      <div ref={heroRef} className="h-screen relative flex flex-col items-center justify-center overflow-hidden">
         {/* Background Neural Network */}
         <div className="absolute inset-0 z-0">
-          <NeuralNetwork className="h-full w-full slow-network" />
+          <NeuralNetwork className="h-full w-full" />
         </div>
 
         {/* Hero Content */}
-        <div className="container relative z-10 px-4 mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-            <span className="text-gradient cyberpunk-text">Neural Network</span>{' '}
-            <span className="glitch-text" data-text="Portfolio">Portfolio</span>
+        <div className="container relative z-10 px-4 mx-auto text-center bg-zinc-50">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 hero-fade-in">
+            <span className="text-gradient">Neural Network</span> Portfolio
           </h1>
-          <p className="text-xl md:text-2xl text-sci-gray max-w-3xl mx-auto mb-8 typing-text">
+          <p className="text-xl md:text-2xl text-sci-gray max-w-3xl mx-auto mb-8 hero-fade-in-delay-1">
             AI Engineer & Full-Stack Developer creating intelligent systems and
             innovative applications.
           </p>
-          <div className="hero-fade-in-delay-3">
-            <button
-              onClick={() => handleNavigate("about")}
-              className="px-8 py-3 rounded-md font-medium bg-gradient-to-r from-sci-cyan to-sci-purple text-white hover:shadow-lg hover:shadow-sci-cyan/20 transition-all duration-300"
-            >
+          <div className="hero-fade-in-delay-2">
+            <button onClick={() => handleNavigate("about")} className="px-8 py-3 rounded-md font-medium bg-gradient-to-r from-sci-cyan to-sci-purple text-white hover:shadow-lg hover:shadow-sci-cyan/20 transition-all duration-300">
               Explore Portfolio
             </button>
           </div>
@@ -185,8 +185,6 @@ const Index = () => {
           </p>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;

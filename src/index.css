@@ -98,19 +98,15 @@
     transform-style: preserve-3d;
   }
   
-  /* Neural Network Links - Slower animation */
+  /* Neural Network Links */
   .network-link {
     @apply absolute h-px bg-gradient-to-r from-sci-cyan/10 via-sci-cyan/40 to-sci-cyan/10 z-0 transform-gpu;
-    transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  
-  .slow-network .network-link {
-    transition: all 2.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
   
   /* Node hover effect */
   .node {
-    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
   
   .node:hover {
@@ -136,248 +132,10 @@
     50% { border-color: #00EAFF }
   }
   
-  /* Cyberpunk Typography Animations */
-  .cyberpunk-text {
-    position: relative;
-    display: inline-block;
-    text-shadow: 0 0 10px rgba(0, 234, 255, 0.7);
-    animation: cyber-glow 4s ease-in-out infinite alternate;
-  }
-  
-  @keyframes cyber-glow {
-    0%, 100% {
-      text-shadow: 0 0 10px rgba(0, 234, 255, 0.7), 0 0 20px rgba(0, 234, 255, 0.5);
-    }
-    50% {
-      text-shadow: 0 0 15px rgba(0, 234, 255, 0.9), 0 0 30px rgba(0, 234, 255, 0.7), 0 0 40px rgba(122, 21, 247, 0.5);
-    }
-  }
-  
-  /* Glitch Text Effect */
-  .glitch-text {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .glitch-text::before,
-  .glitch-text::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-  
-  .glitch-text::before {
-    left: 2px;
-    text-shadow: -2px 0 #ff00ff;
-    clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim-1 5s infinite linear alternate-reverse;
-  }
-  
-  .glitch-text::after {
-    left: -2px;
-    text-shadow: -2px 0 #00eaff;
-    clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim-2 5s infinite linear alternate-reverse;
-  }
-  
-  @keyframes glitch-anim-1 {
-    0% {
-      clip: rect(27px, 9999px, 54px, 0);
-    }
-    4% {
-      clip: rect(78px, 9999px, 98px, 0);
-    }
-    8% {
-      clip: rect(42px, 9999px, 3px, 0);
-    }
-    12% {
-      clip: rect(66px, 9999px, 26px, 0);
-    }
-    16% {
-      clip: rect(94px, 9999px, 74px, 0);
-    }
-    20% {
-      clip: rect(47px, 9999px, 39px, 0);
-    }
-    24% {
-      clip: rect(1px, 9999px, 3px, 0);
-    }
-    28% {
-      clip: rect(60px, 9999px, 56px, 0);
-    }
-    32% {
-      clip: rect(28px, 9999px, 86px, 0);
-    }
-    36% {
-      clip: rect(56px, 9999px, 2px, 0);
-    }
-    40% {
-      clip: rect(13px, 9999px, 23px, 0);
-    }
-    44% {
-      clip: rect(9px, 9999px, 66px, 0);
-    }
-    48% {
-      clip: rect(61px, 9999px, 59px, 0);
-    }
-    52% {
-      clip: rect(58px, 9999px, 87px, 0);
-    }
-    56% {
-      clip: rect(80px, 9999px, 100px, 0);
-    }
-    60% {
-      clip: rect(25px, 9999px, 56px, 0);
-    }
-    64% {
-      clip: rect(77px, 9999px, 93px, 0);
-    }
-    68% {
-      clip: rect(81px, 9999px, 36px, 0);
-    }
-    72% {
-      clip: rect(4px, 9999px, 82px, 0);
-    }
-    76% {
-      clip: rect(94px, 9999px, 88px, 0);
-    }
-    80% {
-      clip: rect(17px, 9999px, 99px, 0);
-    }
-    84% {
-      clip: rect(81px, 9999px, 69px, 0);
-    }
-    88% {
-      clip: rect(44px, 9999px, 10px, 0);
-    }
-    92% {
-      clip: rect(25px, 9999px, 30px, 0);
-    }
-    96% {
-      clip: rect(11px, 9999px, 64px, 0);
-    }
-    100% {
-      clip: rect(36px, 9999px, 23px, 0);
-    }
-  }
-  
-  @keyframes glitch-anim-2 {
-    0% {
-      clip: rect(6px, 9999px, 5px, 0);
-    }
-    4% {
-      clip: rect(84px, 9999px, 40px, 0);
-    }
-    8% {
-      clip: rect(56px, 9999px, 83px, 0);
-    }
-    12% {
-      clip: rect(11px, 9999px, 84px, 0);
-    }
-    16% {
-      clip: rect(31px, 9999px, 67px, 0);
-    }
-    20% {
-      clip: rect(89px, 9999px, 42px, 0);
-    }
-    24% {
-      clip: rect(91px, 9999px, 88px, 0);
-    }
-    28% {
-      clip: rect(7px, 9999px, 4px, 0);
-    }
-    32% {
-      clip: rect(9px, 9999px, 42px, 0);
-    }
-    36% {
-      clip: rect(60px, 9999px, 100px, 0);
-    }
-    40% {
-      clip: rect(23px, 9999px, 91px, 0);
-    }
-    44% {
-      clip: rect(57px, 9999px, 39px, 0);
-    }
-    48% {
-      clip: rect(4px, 9999px, 44px, 0);
-    }
-    52% {
-      clip: rect(100px, 9999px, 21px, 0);
-    }
-    56% {
-      clip: rect(54px, 9999px, 1px, 0);
-    }
-    60% {
-      clip: rect(79px, 9999px, 52px, 0);
-    }
-    64% {
-      clip: rect(68px, 9999px, 30px, 0);
-    }
-    68% {
-      clip: rect(29px, 9999px, 84px, 0);
-    }
-    72% {
-      clip: rect(56px, 9999px, 51px, 0);
-    }
-    76% {
-      clip: rect(48px, 9999px, 46px, 0);
-    }
-    80% {
-      clip: rect(61px, 9999px, 31px, 0);
-    }
-    84% {
-      clip: rect(75px, 9999px, 99px, 0);
-    }
-    88% {
-      clip: rect(91px, 9999px, 17px, 0);
-    }
-    92% {
-      clip: rect(84px, 9999px, 77px, 0);
-    }
-    96% {
-      clip: rect(80px, 9999px, 32px, 0);
-    }
-    100% {
-      clip: rect(99px, 9999px, 99px, 0);
-    }
-  }
-  
-  /* Typing Text Animation */
-  .typing-text {
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    border-right: 3px solid #00EAFF;
-    animation: typing 4s steps(40) 1s 1 normal both, blink-caret 1s step-end infinite;
-    width: 0;
-  }
-  
-  /* Hero fade-in animations - Made slower */
-  @keyframes fade-in-slow {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-  
-  .hero-fade-in {
-    animation: fade-in-slow 2.5s ease-out forwards;
-  }
-  
-  .hero-fade-in-delay-1 {
-    animation: fade-in-slow 2.5s ease-out 0.5s forwards;
-    opacity: 0;
-  }
-  
-  .hero-fade-in-delay-2 {
-    animation: fade-in-slow 2.5s ease-out 1s forwards;
-    opacity: 0;
-  }
-  
-  .hero-fade-in-delay-3 {
-    animation: fade-in-slow 2.5s ease-out 1.5s forwards;
-    opacity: 0;
+  .typing {
+    animation: 
+      typing 3.5s steps(30, end),
+      blink-caret .75s step-end infinite;
   }
   
   /* Scrollbar styling */
@@ -448,7 +206,6 @@
     background: linear-gradient(90deg, #00EAFF, #7A15F7);
     width: 0%;
     transition: width 0.1s ease;
-    box-shadow: 0 0 10px rgba(0, 234, 255, 0.7);
   }
   
   /* Scroll section animations */
@@ -463,6 +220,26 @@
     opacity: 0;
     transform: translateY(-50px);
   }
+  
+  /* Hero animations */
+  @keyframes fade-in-slow {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  
+  .hero-fade-in {
+    animation: fade-in-slow 1.5s ease-out forwards;
+  }
+  
+  .hero-fade-in-delay-1 {
+    animation: fade-in-slow 1.5s ease-out 0.3s forwards;
+    opacity: 0;
+  }
+  
+  .hero-fade-in-delay-2 {
+    animation: fade-in-slow 1.5s ease-out 0.6s forwards;
+    opacity: 0;
+  }
 }
 
 .glass-card {
@@ -472,40 +249,4 @@
 .glass-card:hover {
   @apply bg-white/10 border-sci-cyan/30;
   box-shadow: 0 0 15px rgba(0, 234, 255, 0.2);
-}
-
-/* Certification card styling */
-.cert-card {
-  @apply glass rounded-lg p-4 relative z-10 transition-all duration-300 ease-in-out flex flex-row;
-  box-shadow: 0 0 10px rgba(0, 234, 255, 0.1);
-  border: 1px solid rgba(0, 234, 255, 0.1);
-  backdrop-filter: blur(8px);
-}
-
-.cert-card:hover {
-  box-shadow: 0 0 15px rgba(0, 234, 255, 0.3);
-  border-color: rgba(0, 234, 255, 0.3);
-}
-
-/* Contact form equal sizing */
-.contact-form-container {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 768px) {
-  .contact-form-container {
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
-  
-  .contact-form {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .contact-form-content {
-    flex: 1;
-  }
 }
